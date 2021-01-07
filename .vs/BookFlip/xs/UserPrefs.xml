@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{70B9AAFE-298D-CB16-3FE3-693A6B787C0C}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scenes/FlickThrowTouch.cs">
+    <Files>
+      <File FileName="Assets/Basket/Scripts/HUD.cs" Line="12" Column="1" />
+      <File FileName="Assets/Basket/Scripts/Score.cs" Line="93" Column="1" />
+      <File FileName="Assets/Standard Assets/Character Controllers/Sources/Scripts/CharacterMotor.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scenes/Flick.cs" Line="45" Column="8" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="ac0b9350-58fb-450f-9610-ecb856a4beb1" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
