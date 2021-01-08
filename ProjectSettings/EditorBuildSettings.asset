@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 09ababf548da9451e8321c38ca2f26a2
+    path: Assets/Book-Page Curl Pro/Examples/scenes/Example_2.unity
+    guid: 67b73a68ba2318447be12fcb4a7251ef
   m_configObjects: {}
