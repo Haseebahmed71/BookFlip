@@ -12,38 +12,52 @@ public class MoveByTouch : MonoBehaviour
     public float zDistance = 30.0f;
     [HideInInspector]
     public bool isThrown;
+    public bool isCompleted;
     bool ControlActivate = false;
-    public GameObject[] Targets;
+    public GameObject[] Rack1;
+    public GameObject[] Rack2;
     // public Transform targetPosition;
     int targetindex;
-
+    int targetRack;
+    int i = 0;
     void Start()
     {
         isThrown = false;
+
     }
 
     void Update()
     {
+
+
         if (!ControlActivate) return;
+
 
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
         }
- 
+
         if (isThrown)
         {
-            transform.Rotate(0f, 0f, 10f);
-         //   return;
+            if (i < 72)
+            {
+                i++;
+                transform.Rotate(0f, 0f, 10);
+            }
+            else
+            {
+                isThrown = false;
+            }
         }
-
+        if (isCompleted) return;
 
         if (Input.GetMouseButtonDown(0))
         {
 
             Vector3 mousePos = Input.mousePosition * -1.0f;
-            mousePos.z = zDistance; 
+            mousePos.z = zDistance;
 
             startPos = Camera.main.ScreenToWorldPoint(mousePos);
         }
@@ -56,33 +70,53 @@ public class MoveByTouch : MonoBehaviour
 
 
             endPos = Camera.main.ScreenToWorldPoint(mousePos);
-            endPos.z = Camera.main.nearClipPlane; 
+            endPos.z = Camera.main.nearClipPlane;
 
             Vector3 throwDir = (startPos - endPos).normalized;
             float angle = Vector2.Angle(Vector3.right, endPos - startPos);
-            Debug.LogError(angle);
-            if(angle>20&&angle<70)
+            float angle2 = Vector2.Angle(Vector3.up, endPos - startPos);
+            //Debug.LogError(angle);
+            Debug.LogError(angle2);
+            //Debug.LogError(angle - 30);
+
+            if (angle2 < 162)
             {
-                targetindex = 0;
+                targetRack = 1;
             }
-            else if(angle>70 && angle<110)
+            else
             {
-                targetindex = 1;
+                targetRack = 0;
             }
-            else if(angle>110 &&angle<130)
+            if (angle > 30 && angle < 120 && angle2 > 155)
             {
-                targetindex = 2;
+                targetindex = ((int)angle - 30) / 5;
+
+                //targetindex
+                //this.gameObject.GetComponent<Rigidbody>().AddForce(throwDir * (startPos - endPos).sqrMagnitude);
+                //this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+                isThrown = true;
+                if (targetRack == 0)
+                {
+                    LeanTween.move(gameObject, Rack1[targetindex].transform.position, 1f).setOnComplete(stopRotation);
+                }
+                if (targetRack == 1)
+                {
+                    LeanTween.move(gameObject, Rack2[targetindex].transform.position, 1f).setOnComplete(stopRotation);
+                }
+                isCompleted = true;
             }
-            //this.gameObject.GetComponent<Rigidbody>().AddForce(throwDir * (startPos - endPos).sqrMagnitude);
-            //this.gameObject.GetComponent<Rigidbody>().useGravity = true;
-            isThrown = true;
-          LeanTween.move(gameObject, Targets[targetindex].transform.position, 1f).setOnComplete(stopRotation);
+            else
+            {
+                this.gameObject.GetComponent<Rigidbody>().AddForce(throwDir * (startPos - endPos).sqrMagnitude);
+                this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+                isThrown = true;
+            }
         }
     }
 
     private void stopRotation()
     {
-        isThrown = false;
+        // isThrown = false;
     }
 
     public void ResetScene()

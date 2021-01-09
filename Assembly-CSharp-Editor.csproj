@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Book-Page Curl Pro\Editor\BookProEditor.cs" />
+    <Compile Include="Assets\LeanTween\Editor\LeanTweenDocumentationEditor.cs" />
     <Reference Include="UnityEngine.Purchasing">
       <HintPath>/Volumes/Untitled/Haseeb/Current Projects/BookFlip/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
