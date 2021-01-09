@@ -9,41 +9,45 @@ public class AutoFlip : MonoBehaviour
     public FlipMode Mode;
     public float PageFlipTime = 1;
     public float DelayBeforeStart;
-    public float TimeBetweenPages=5;
-    public bool AutoStartFlip=true;
+    public float TimeBetweenPages = 5;
+    public bool AutoStartFlip = true;
     bool flippingStarted = false;
     bool isPageFlipping = false;
     float elapsedTime = 0;
     float nextPageCountDown = 0;
+    public AudioSource _aud;
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         if (!ControledBook)
             ControledBook = GetComponent<BookPro>();
         ControledBook.interactable = false;
         if (AutoStartFlip)
             StartFlipping();
     }
-    public void FlipRightPage()
+    public void FlipRightPage ()
     {
         if (isPageFlipping) return;
+
+        _aud.Play();
         if (ControledBook.CurrentPaper >= ControledBook.papers.Length) return;
         isPageFlipping = true;
-        PageFlipper.FlipPage(ControledBook, PageFlipTime, FlipMode.RightToLeft, ()=> { isPageFlipping = false; });
+        PageFlipper.FlipPage(ControledBook, PageFlipTime, FlipMode.RightToLeft, () => { isPageFlipping = false; });
     }
-    public void FlipLeftPage()
+    public void FlipLeftPage ()
     {
         if (isPageFlipping) return;
         if (ControledBook.CurrentPaper <= 0) return;
         isPageFlipping = true;
         PageFlipper.FlipPage(ControledBook, PageFlipTime, FlipMode.LeftToRight, () => { isPageFlipping = false; });
     }
-    public void StartFlipping()
+    public void StartFlipping ()
     {
         flippingStarted = true;
         elapsedTime = 0;
         nextPageCountDown = 0;
     }
-    void Update()
+    void Update ()
     {
         if (flippingStarted)
         {
@@ -58,7 +62,7 @@ public class AutoFlip : MonoBehaviour
                         Mode == FlipMode.LeftToRight))
                     {
                         isPageFlipping = true;
-                        PageFlipper.FlipPage(ControledBook, PageFlipTime, Mode, ()=> { isPageFlipping = false; });
+                        PageFlipper.FlipPage(ControledBook, PageFlipTime, Mode, () => { isPageFlipping = false; });
                     }
                     else
                     {
@@ -66,7 +70,7 @@ public class AutoFlip : MonoBehaviour
                         this.enabled = false;
                     }
 
-                    nextPageCountDown = PageFlipTime + TimeBetweenPages+ Time.deltaTime;
+                    nextPageCountDown = PageFlipTime + TimeBetweenPages + Time.deltaTime;
                 }
                 nextPageCountDown -= Time.deltaTime;
             }
